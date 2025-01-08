@@ -12,11 +12,13 @@ public class ConnectFourGUIDriver extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+
 		HBox hbox = new HBox(10);
 		Label title = new Label("Connect the Four");
 		hbox.getChildren().add(title);
 		Scene scene = new Scene(hbox, 500, 500);
 		stage.setScene(scene);		
+
 		stage.show();
 	}
 
