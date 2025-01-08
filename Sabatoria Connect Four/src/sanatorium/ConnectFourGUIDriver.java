@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 
 public class ConnectFourGUIDriver extends Application {
 	int num =1;
-	int num_1 = 3;
+
 
 	@Override
 	public void start(Stage stage) throws Exception {
