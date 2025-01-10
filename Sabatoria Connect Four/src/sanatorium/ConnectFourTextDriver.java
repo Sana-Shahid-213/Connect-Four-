@@ -56,6 +56,7 @@ public class ConnectFourTextDriver {
 			drop(column, currentPlayer, boardArray2);
 			printBoard(boardArray2);
 			checkRow(boardArray2, currentPlayer);
+			checkColumn(boardArray2, currentPlayer);
 			// switching player
 			if (currentPlayer == "R") {
 				currentPlayer = "Y";
@@ -95,7 +96,7 @@ public class ConnectFourTextDriver {
 		//TODO 
 		int fourInARow = 0;
 		
-		for (int i = 6; i >= 0; i--) {
+		for (int i = board.length-1; i >= 0; i--) {
 			for (String rowElement : board[i]) {
 				//TODO check each element of the row, given a certain colour to search for.
 				//this will be called right after a turn.
@@ -121,6 +122,27 @@ public class ConnectFourTextDriver {
 		}
 		}
 		
+	//checking vertically for wins
+	public static void checkColumn(String[][] board, String colour) {
+		//start at index of row, move up thru columns instead [row][column]
+		//column is i, row 
+		int fourInARow = 0;
+		for (int i = board.length-1; i>=0; i--) {
+			
+			//move up through rows
+			for (String[] row : board) {
+			if (row[i] == colour) {
+				fourInARow++;
+			}else {
+				fourInARow = 0;
+			}if (fourInARow >= 4) {
+				System.out.println("YIPPEE " + colour + " YOU WON VERTICALLY");
+			}
+			}
+			
+		}
+	}
+	
 	
 	// prints the updated board.
 	public static void printBoard(String[][] board) {
@@ -138,15 +160,14 @@ public class ConnectFourTextDriver {
 
 		System.out.println("Connect Four");
 		System.out.println("--------------");
-		System.out.println("                ");
-		System.out.println("How to play: ");
+		
+		System.out.println("\nHow to play: ");
 		System.out.println("Decide what colour you would like to be");
 		System.out.println("Enter the position of where you would like to drop your colour token ");
 		System.out.println(
 				"Try to get 4 of your coloured tokens in a row, either horizontally, vertically or diagonally");
 		System.out.println("Player 1 is Red represented by R");
-		System.out.println("Player 2 is Yellow represented by Y");
-		System.out.println("  ");
+		System.out.println("Player 2 is Yellow represented by Y\n");
 	}
 
 }
