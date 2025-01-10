@@ -11,7 +11,7 @@ public class ConnectFourTextDriver {
 		int column = 0;
 		int row;
 		boolean playerOneTurn = true;
-
+		//
 		String[][] boardArray2 = { { "O", "O", "O", "O", "O", "O", "O" }, { "O", "O", "O", "O", "O", "O", "O" },
 				{ "O", "O", "O", "O", "O", "O", "O" }, { "O", "O", "O", "O", "O", "O", "O" },
 				{ "O", "O", "O", "O", "O", "O", "O" }, { "O", "O", "O", "O", "O", "O", "O" },
@@ -20,10 +20,10 @@ public class ConnectFourTextDriver {
 		for (int i = 0; i < boardArray2.length - 1; i++) {
 			System.out.println(Arrays.toString(boardArray2[i]));
 		}
-
+		//prompting user input
 		System.out.println("                ");
 
-		System.out.println("Enter the columm number (0-6):");
+		System.out.println("Enter the column number (0-6):");
 		column = in.nextInt();
 
 		System.out.println("Enter the row number (0-5): ");
@@ -33,9 +33,23 @@ public class ConnectFourTextDriver {
 		for (int i = 0; i < boardArray2.length - 1; i++) {
 			System.out.println(Arrays.toString(boardArray2[i]));
 		}
+		
+		//implementing dropping
+		
+		//back up 1
 
 	}
-
+	public static void drop(int col, int row, String[][] modArray){
+		if (Arrays.toString(modArray[col])=="0") {
+			
+		}
+		//for (int i = 0; i < boardArray2.length - 1; i++) {
+			//System.out.println(Arrays.toString(boardArray2[i]));
+	}
+	
+	/**
+	 * Purpose: to display the menu of the 
+	 */
 	public static void menu() {
 
 		System.out.println("Connect Four");
