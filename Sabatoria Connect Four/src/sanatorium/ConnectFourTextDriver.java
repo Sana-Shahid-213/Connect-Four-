@@ -40,7 +40,7 @@ public class ConnectFourTextDriver {
 		// printBoard(boardArray2);
 
 		boolean gameOver = false;
-		String currentPlayer = "Red";
+		String currentPlayer = "R";
 
 		// looping to let players alternate placing tokens
 		while (gameOver == false) {
@@ -50,11 +50,12 @@ public class ConnectFourTextDriver {
 
 			drop(column, currentPlayer, boardArray2);
 			printBoard(boardArray2);
+			checkRow(boardArray2, currentPlayer);
 			// switching player
-			if (currentPlayer == "Red") {
-				currentPlayer = "Yellow";
+			if (currentPlayer == "R") {
+				currentPlayer = "Y";
 			} else {
-				currentPlayer = "Red";
+				currentPlayer = "R";
 			}
 		}
 
@@ -71,10 +72,10 @@ public class ConnectFourTextDriver {
 				// System.out.println("it worked!");
 
 				// depending on the current player, place a different colour of token
-				if (player == "Yellow") {
+				if (player == "Y") {
 					modArray[i][column] = "Y";
 
-				} else if (player == "Red") {
+				} else if (player == "R") {
 					modArray[i][column] = "R";
 
 				}
@@ -83,7 +84,39 @@ public class ConnectFourTextDriver {
 			}
 		}
 	}
-
+	
+	//checking horizontally for wins
+	public static void checkRow(String[][] board, String colour) {
+		//TODO 
+		int fourInARow = 0;
+		
+		for (int i = 6; i >= 0; i--) {
+			for (String rowElement : board[i]) {
+				//TODO check each element of the row, given a certain colour to search for.
+				//this will be called right after a turn.
+				//start a count to 4, reset the count if not. if 4 is reached then display win msg.
+				
+				if (rowElement == colour) {
+					//System.out.println(rowElement + "GOTCHA");
+					fourInARow++;
+				}else {
+					//System.out.println("BACK TO ZERO");
+					fourInARow = 0;
+					
+				}if (fourInARow >= 4) {
+					System.out.println("YIPPEE " + colour + " you WON horizontally");
+					
+				}
+				
+			}
+			
+			
+			
+			
+		}
+		}
+		
+	
 	// prints the updated board.
 	public static void printBoard(String[][] board) {
 		for (int j = 0; j < board.length; j++) {
@@ -93,6 +126,9 @@ public class ConnectFourTextDriver {
 	}
 
 	//prints menu
+	/**
+	 * 
+	 */
 	public static void menu() {
 
 		System.out.println("Connect Four");
