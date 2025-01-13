@@ -143,6 +143,10 @@ public class ConnectFourTextDriver {
 		}
 	}
 	
+	public static void checkDiagonal(String[][] board, String colour ) {
+		
+	}
+	
 	
 	// prints the updated board.
 	public static void printBoard(String[][] board) {
