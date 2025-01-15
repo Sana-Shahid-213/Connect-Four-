@@ -32,6 +32,7 @@ public class ConnectFourGUIDriver extends Application {
 		hbox.getChildren().addAll(tileBox);
 		Scene scene = new Scene(hbox, 500, 500);
 		stage.setScene(scene);		
+		
 
 		stage.show();
 		
