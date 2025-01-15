@@ -144,7 +144,11 @@ public class ConnectFourTextDriver {
 	}
 	
 	public static void checkDiagonal(String[][] board, String colour ) {
-		
+		int fourDiagonal = 0;
+		for (int i = board.length-1; i>=0; i--) {
+			
+			
+		}
 	}
 	
 	
