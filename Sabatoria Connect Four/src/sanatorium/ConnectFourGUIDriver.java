@@ -38,6 +38,7 @@ public class ConnectFourGUIDriver extends Application {
 				slots[i][j] = new Button();
 				slots[i][j].setPrefSize(60, 55);
 				slots[i][j].setStyle("-fx-base: #0000FF;");
+				slots[i][j].setDisable(true);
 				Connect4.getChildren().addAll(slots[i][j]);
 			}
 		}
@@ -61,7 +62,12 @@ public class ConnectFourGUIDriver extends Application {
 
 		stage.show();
 
-		
+		for(int k = 0; k <tileBtns.length; k++) {
+			tileBtns[k].setOnAction(e -> {
+				 //sana
+				
+			});
+		}
 	}
 
 	public static void main(String[] args) {
