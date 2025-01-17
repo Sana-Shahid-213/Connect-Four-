@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -15,11 +17,12 @@ public class ConnectFourGUIDriver extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		VBox hbox = new VBox(10);
-		//Label title = new Label("Connect Four");
-	//	title.setAlignment(Pos.CENTER);
-		//hbox.getChildren().add(title);
 		HBox tileBox = new HBox(5);
+		HBox Connect4 = new HBox(30);
 		Button[] tileBtns = new Button[7];	
+
+		Board board = new Board(6,7);
+		Button[][] slots = new Button[6][7];
 
 		for (int i = 0; i < tileBtns.length; i++) {
 			
@@ -28,31 +31,36 @@ public class ConnectFourGUIDriver extends Application {
 			tileBox.getChildren().add(tileBtns[i]);
 		}
 
+
+		
+		for (int i = 0; i < board.getRows(); i++) {
+			for (int j = 0; j < board.getCols(); j++) {
+				slots[i][j] = new Button();
+				slots[i][j].setPrefSize(60, 55);
+				slots[i][j].setStyle("-fx-base: #0000FF;");
+				Connect4.getChildren().addAll(slots[i][j]);
+			}
+		}
+		GridPane gridPane = new GridPane();
+		gridPane.setAlignment(Pos.TOP_CENTER);
+		gridPane.setHgap(10);
+		gridPane.setVgap(10);
+		
+		for (int i = 0; i < board.getRows(); i++) {
+			for (int j = 0; j < board.getCols(); j++) {
+				gridPane.add(slots[i][j], j, i);
+			}
+		}
+		
 		tileBox.setAlignment(Pos.CENTER);
-		hbox.getChildren().addAll(tileBox);
+		Connect4.setAlignment(Pos.CENTER);
+		hbox.getChildren().addAll(tileBox,gridPane);
 		Scene scene = new Scene(hbox, 500, 500);
 		stage.setScene(scene);		
 		
 
 		stage.show();
-		
-		
-		Button[] bRow1 = new Button[7];
-		
-		VBox bocks = new VBox(10);
-		for (int i = 0; i < 7; i++) {
-			bRow1[i] = new Button(String.valueOf(i + 1));
-			bRow1[i].setStyle("-fx-background-color:white");
-			//tiles[i] = new Tile(i + 1);
-			//row1.getChildren().add(bRow1[i]);
-		}
-		
-		
-		
-		//bocks.getChildren().addAll(row1);
-		
-		//bocks.getChildren().addAll(row1, row2, row3, row4, row5, row6);
-		
+
 		
 	}
 
