@@ -6,8 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Board {
-	
-	
+
 	private Cell[][] board;
 	private int rows;
 	private int cols;
@@ -15,6 +14,7 @@ public class Board {
 
 	/**
 	 * Constructor for Boards.
+	 * 
 	 * @param aRows number of rows in board
 	 * @param aCols number of columns in board
 	 */
@@ -29,46 +29,45 @@ public class Board {
 			}
 		}
 	}
+
 	/**
 	 * Obtain the current player (colour)
+	 * 
 	 * @return player (colour)
 	 */
 	public String getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	/**
 	 * Obtain the current number of rows.
+	 * 
 	 * @return number of rows
 	 */
-	public int getRows(){
+	public int getRows() {
 		return rows;
 	}
-	
+
 	/**
 	 * Obtain the current number of columns.
+	 * 
 	 * @return number of columns
 	 */
-	public int getCols(){
+	public int getCols() {
 		return cols;
 	}
-	
+
 	/**
 	 * Check if a proposed location is valid.
+	 * 
 	 * @param rowIndex row index to check
 	 * @param colIndex column index to check
 	 * @return true if index value is valid, otherwise false
 	 */
-	public boolean isValid(int rowIndex, int colIndex){
-		return (rowIndex>=0 && rowIndex < rows) && (colIndex>=0 && colIndex < cols);
+	public boolean isValid(int rowIndex, int colIndex) {
+		return (rowIndex >= 0 && rowIndex < rows) && (colIndex >= 0 && colIndex < cols);
 	}
-	
-	
-	
-	
-		
-	
-	
+
 	public void display() {
 		System.out.println("BOARD");
 		for (int i = 0; i < rows; i++) {
@@ -78,165 +77,167 @@ public class Board {
 			System.out.println();
 		}
 	}
-	
+
 	public void placePiece(int column, CellState player) {
-		board[rows-1][column-1].setState(player);
-		
+		board[rows - 1][column - 1].setState(player);
+
 	}
+
 	/**
-	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified by the user.
+	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified
+	 * by the user.
+	 * 
 	 * @param column int returned when button above is selected by user
 	 * @param modArray array of buttons representing board
 	 * @param currentPlayer current player and colour of token to drop
 	 */
 	public void drop(int column, Circle[][] modArray, String currentPlayer) {
-		boolean placed = false;
-		for (int i = modArray.length-1; i >= 0; i--) {
+		
+		boolean placed = false;//checks from the bottom up, so only 1 token should be placed when drop is called.
+		
+		for (int i = modArray.length - 1; i >= 0; i--) {
 
 			// if the space is free, add a token
-			//if (modArray[i][column].getStyle().equals(("-fx-base: blue")) && placed == false) {
+
 			if (modArray[i][column].getFill() == (Color.MIDNIGHTBLUE) && placed == false) {
+
+				// place red token if player is red
 				if (currentPlayer == "Red") {
-				//modArray[i][column].setStyle("-fx-base: red");
 					modArray[i][column].setFill(Color.RED);
-					//modArray[i][column].setStroke(Color.CRIMSON);
-				 //System.out.println("it worked! red placed");
-				 checkWin(modArray, currentPlayer, column);
-				 switchPlayer();
-				 placed = true;
-				 
-				}else if (currentPlayer == "Yellow") {
-					//modArray[i][column].setStyle("-fx-base: yellow");
-					modArray[i][column].setFill(Color.YELLOW);
-					//modArray[i][column].setStroke(Color.GOLD);
+
+					// System.out.println("it worked! red placed");
 					checkWin(modArray, currentPlayer, column);
 					switchPlayer();
-					
+					placed = true;
+
+					// place yellow token if player is yellow
+				} else if (currentPlayer == "Yellow") {
+
+					modArray[i][column].setFill(Color.YELLOW);
+
+					checkWin(modArray, currentPlayer, column);
+					switchPlayer();
+
 					// System.out.println("it worked! yellow placed");
-					 placed = true;
-					}
-				 //placed = true;//so only one token can be placed at a time
-				 
+					placed = true;
+				}
+
 			}
-			//placed = true;
 		}
-		
+
 	}
+
 	/**
 	 * Purpose: changes currentPlayer. Helper method called when a token is dropped
 	 */
 	public void switchPlayer() {
-		if (currentPlayer == "Red"){
-			//System.out.println("successfully changed to yellow");
+		if (currentPlayer == "Red") {
+			// System.out.println("successfully changed to yellow");
 			this.currentPlayer = "Yellow";
-			
-		}else if (currentPlayer == "Yellow"){
-			//System.out.println("successfully changed to red");
+
+		} else if (currentPlayer == "Yellow") {
+			// System.out.println("successfully changed to red");
 			this.currentPlayer = "Red";
-			
-		}else {
+
+		} else {
 			this.currentPlayer = "Red";
 		}
-		
+
 	}
-	
+
 	/**
-	 * Purpose: checks the board for a win, given a specific colour to search for (current player
+	 * Purpose: checks the board for a win, given a specific colour to search for
+	 * (current player
+	 * 
 	 * @param board 2D Array of Buttons representing a board
 	 * @param currentPlayer String representing current colour's turn
 	 * @param col int column specified (where it was dropped)
 	 */
 	public void checkWin(Circle[][] board, String currentPlayer, int col) {
 		int fourInARow = 0;
-		for (int i = board.length-1; i >= 0; i--) {
+		for (int i = board.length - 1; i >= 0; i--) {
 			for (Circle rowElement : board[i]) {
-				//TODO check each element of the row, given a certain colour to search for.
-				//this will be called right after a turn.
-				//start a count to 4, reset the count if not. if 4 is reached then display win msg.
+				// start a count of the player's colour to 4, reset the count if not. if 4 is reached then display win msg
+				//TODO method to display win message
 				
-				//if (rowElement.getFill().equals("-fx-base: red") && this.currentPlayer == "Red") {
-				if (rowElement.getFill()==(Color.RED) && this.currentPlayer == "Red") {
+				//if player colour found, add to the count
+				if (rowElement.getFill() == (Color.RED) && this.currentPlayer == "Red") {
 					fourInARow++;
-					//System.out.println(currentPlayer + " GOTCHA " + fourInARow);
-					
-				//}else if (rowElement.getStyle().equals("-fx-base: yellow") && this.currentPlayer == "Yellow") {
-				}else if (rowElement.getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
+					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
+
+				} else if (rowElement.getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
 					fourInARow++;
-					//System.out.println(currentPlayer + " GOTCHA " + fourInARow);
-				
+					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
+
 				}
-				
-				
+				//if it is not the player's colour, reset count.
 				else {
-					//System.out.println(currentPlayer + " BACK TO ZERO");
+					// System.out.println(currentPlayer + " BACK TO ZERO");
 					fourInARow = 0;
-					//System.out.println(fourInARow);
-					
+					// System.out.println(fourInARow);
+
 				}
+				//if 4 in a row is reached, congratulate player
 				if (fourInARow >= 4) {
 					System.out.println("YIPPEE " + currentPlayer + " you WON horizontally");
-					//TODO end game here.
-					
+					// TODO end game here.
+
 				}
-				
+
 			}
-			
-			
-			
-			
+
 		}
-		//now checking columns
+		// now checking columns
 		fourInARow = 0;
-		for (int j = board.length-1; j>=0; j--) {
-			
-			//move up through rows
+		for (int j = board.length - 1; j >= 0; j--) {
+
+			// move up through rows
 			for (Circle row[] : board) {
-			//if (row[j].getStyle().equals("-fx-base: red") && this.currentPlayer == "Red") {
-			if (row[j].getFill() == (Color.RED) && this.currentPlayer == "Red") {
-				fourInARow++;
-			//}else if (row[j].getStyle().equals("-fx-base: yellow") && this.currentPlayer == "Yellow") {
-			}else if (row[j].getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
-				fourInARow++;
-			
+				
+				//same concept as row check, count consecutive player pieces
+				if (row[j].getFill() == (Color.RED) && this.currentPlayer == "Red") {
+					fourInARow++;
+
+				} else if (row[j].getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
+					fourInARow++;
+
+				}
+
+				else {
+					fourInARow = 0;
+				}
+				if (fourInARow >= 4) {
+					System.out.println("YIPPEE " + currentPlayer + " YOU WON VERTICALLY");
+					// TODO end game here - make game end method?? boolean???
+				}
 			}
-			
-			
-			else {
-				fourInARow = 0;
-			}if (fourInARow >= 4) {
-				System.out.println("YIPPEE " + currentPlayer + " YOU WON VERTICALLY");
-				//TODO end game here
-			}
-			}
-			
+
 		}
-		//TODO implement diagonal row checking!!!!!
-		
-		//diagonal row checking below
-		//TODO IN PROGRESS!!!! IN PROGRESS!!!!!!
+		// TODO implement diagonal row checking!!!!!
+
+		// diagonal row checking below
+		// TODO IN PROGRESS!!!! IN PROGRESS!!!!!! NOT DONE YET!!! DOES NOT
+		// WORK!!!!!!!!!!!
 		int n = 0;
-		for (int k=0; k<12; k++) {
-			if (n<=6 && k<6) {
-				for (int l=0; l<n; l++) {
+		for (int k = 0; k < 12; k++) {
+			if (n <= 6 && k < 6) {
+				for (int l = 0; l < n; l++) {
 					if (board[k][l].getFill() == (Color.RED) && this.currentPlayer == "Red") {
 						fourInARow++;
-					}else if (board[k][l].getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
+					} else if (board[k][l].getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
 						fourInARow++;
-					}else {
+					} else {
 						fourInARow = 0;
-					}if (fourInARow >= 4) {
-						System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
-						//TODO end game here
 					}
-					
-					
+					if (fourInARow >= 4) {
+						System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
+						// TODO end game here
+					}
+
 				}
 			}
 		}
-		
-		
-		
-		
+
 	}
-	
+
 }

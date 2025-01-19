@@ -23,13 +23,14 @@ public class ConnectFourGUIDriver extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		
+		//boxes!!!
 		VBox hbox = new VBox(10);
 		HBox tileBox = new HBox(5);
 		HBox Connect4 = new HBox(30);
 		Button[] tileBtns = new Button[7];	
 
 		Board board = new Board(6,7);
-		//Button[][] slots = new Button[6][7];
 		Circle[][] slots = new Circle[6][7];
 		//current player
 		
@@ -37,7 +38,7 @@ public class ConnectFourGUIDriver extends Application {
 		
 
 		
-		//row of buttons to for player to press
+		//row of buttons to for player to press to drop tokens
 		for (int i = 0; i < tileBtns.length; i++) {
 			
 			tileBtns[i] = new Button(String.valueOf(i+1));
@@ -45,30 +46,18 @@ public class ConnectFourGUIDriver extends Application {
 			tileBox.getChildren().add(tileBtns[i]);
 		}
 
-
-		//board... slots?
-		/*for (int i = 0; i < board.getRows(); i++) {
-			for (int j = 0; j < board.getCols(); j++) {
-				slots[i][j] = new Button();
-				slots[i][j].setPrefSize(60, 55);
-				slots[i][j].setStyle("-fx-base: blue");
-				slots[i][j].setDisable(true);
-				Connect4.getChildren().addAll(slots[i][j]);
-			}
-		}*/
 		
-		
+		//creating grid of circles to represent board
 		for (int i = 0; i < board.getRows(); i++) {
 			for (int j = 0; j < board.getCols(); j++) {
 				slots[i][j] = new Circle(70, 55, 30);
-				//slots[i][j].setPrefSize(60, 55);
-				//slots[i][j].setStrokeWidth(3);
+				
 				slots[i][j].setFill(Color.MIDNIGHTBLUE);
 				slots[i][j].setDisable(true);
 				Connect4.getChildren().addAll(slots[i][j]);
 			}
 		}
-		//gridpane, holding buttons?
+		//gridpane, holding board circles??????
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.TOP_CENTER);
 		gridPane.setHgap(10);
@@ -80,21 +69,19 @@ public class ConnectFourGUIDriver extends Application {
 			}
 		}
 		
+		
+		//bonus content
 		tileBox.setAlignment(Pos.CENTER);
 		Connect4.setAlignment(Pos.CENTER);
 		hbox.getChildren().addAll(tileBox,gridPane);
-		
 		Background background = new Background(new BackgroundFill(Color.MEDIUMBLUE, null, null));
-		
 		hbox.setBackground(background);
 		Scene scene = new Scene(hbox, 500, 500);
-		//pane.setStyle("-fx-background: blue");
 		stage.setScene(scene);		
-		
-
 		stage.show();
-		//when top buttons are pressed, drop into user indicated column.
 		
+		
+		//when top buttons are pressed, drop into user indicated column.
 		//System.out.println("checkeroo state is " + board.getCurrentPlayer() );
 		for(int k = 0; k < tileBtns.length; k++) {
 			int column = k;
@@ -103,7 +90,7 @@ public class ConnectFourGUIDriver extends Application {
 				
 				//drop token, verify win if applicable
 				board.drop(column, slots, board.getCurrentPlayer());
-				//TODO modify cell state too!!! also make currentPlayer enum?
+				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
 
 				
 			});
