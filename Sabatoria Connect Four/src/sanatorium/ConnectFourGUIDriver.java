@@ -34,6 +34,26 @@ public class ConnectFourGUIDriver extends Application {
 		Circle[][] slots = new Circle[6][7];
 		//current player
 		
+		//title screen
+		Label title = new Label("CONNECT 4");
+		title.setStyle("-fx-font: 50 arial");
+		title.setTextFill(Color.WHITE);
+		
+		//1 player button
+		Button onePlayer = new Button(" 1 PLAYER ");
+		onePlayer.setStyle("-fx-font: 30 arial");
+		onePlayer.setAlignment(Pos.CENTER);
+		
+		//2 players button
+		Button twoPlayers = new Button("2 PLAYERS");
+		twoPlayers.setStyle("-fx-font: 30 arial");
+		twoPlayers.setAlignment(Pos.CENTER);
+		
+		//Credits
+		Label credits = new Label("A SABATORIA PRODUCTION");
+		credits.setStyle("-fx-font: 25 arial");
+		credits.setTextFill(Color.WHITE);
+		credits.setAlignment(Pos.CENTER);
 		
 		
 
@@ -42,7 +62,13 @@ public class ConnectFourGUIDriver extends Application {
 		for (int i = 0; i < tileBtns.length; i++) {
 			
 			tileBtns[i] = new Button(String.valueOf(i+1));
+			tileBtns[i].setStyle("-fx-font: 20 arial");
 			tileBtns[i].setPrefSize(65, 60);
+			
+			//TODO colour change
+			
+			
+			
 			tileBox.getChildren().add(tileBtns[i]);
 		}
 
@@ -71,12 +97,32 @@ public class ConnectFourGUIDriver extends Application {
 		
 		
 		//bonus content
+		hbox.setAlignment(Pos.CENTER);
+		
 		tileBox.setAlignment(Pos.CENTER);
 		Connect4.setAlignment(Pos.CENTER);
-		hbox.getChildren().addAll(tileBox,gridPane);
+		
+		
+		
+	
+		
+		
+		
+		//hbox.getChildren().addAll(tileBox, gridPane, Connect4);
+		
+		//start of game - display menu, 
+		Utils.displayMenu(hbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
+		twoPlayers.setOnAction(e -> {
+			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, hbox, credits);
+		});
+		
 		Background background = new Background(new BackgroundFill(Color.MEDIUMBLUE, null, null));
 		hbox.setBackground(background);
+		
+		
 		Scene scene = new Scene(hbox, 500, 500);
+		
+		
 		stage.setScene(scene);		
 		stage.show();
 		
@@ -104,6 +150,11 @@ public class ConnectFourGUIDriver extends Application {
 		// TODO Auto-generated method stub
 		launch(args);
 
+	}
+	
+	public void startMenu() {
+		
+		
 	}
 
 }
