@@ -10,7 +10,7 @@ public class Board {
 	private Cell[][] board;
 	private int rows;
 	private int cols;
-	private String currentPlayer;
+	private CellState currentPlayer;
 
 	/**
 	 * Constructor for Boards.
@@ -22,7 +22,7 @@ public class Board {
 		board = new Cell[aRows][aCols];
 		rows = aRows;
 		cols = aCols;
-		currentPlayer = "Red";
+		currentPlayer = CellState.P1;
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				board[i][j] = new Cell(CellState.EMPTY); // no color
@@ -35,7 +35,7 @@ public class Board {
 	 * 
 	 * @return player (colour)
 	 */
-	public String getCurrentPlayer() {
+	public CellState getCurrentPlayer() {
 		return currentPlayer;
 	}
 
@@ -91,7 +91,7 @@ public class Board {
 	 * @param modArray array of buttons representing board
 	 * @param currentPlayer current player and colour of token to drop
 	 */
-	public void drop(int column, Circle[][] modArray, String currentPlayer) {
+	public void drop(int column, Circle[][] modArray, CellState currentPlayer) {
 		
 		boolean placed = false;//checks from the bottom up, so only 1 token should be placed when drop is called.
 		
@@ -102,7 +102,7 @@ public class Board {
 			if (modArray[i][column].getFill() == (Color.MIDNIGHTBLUE) && placed == false) {
 
 				// place red token if player is red
-				if (currentPlayer == "Red") {
+				if (currentPlayer == CellState.P1) {
 					modArray[i][column].setFill(Color.RED);
 
 					// System.out.println("it worked! red placed");
@@ -111,7 +111,7 @@ public class Board {
 					placed = true;
 
 					// place yellow token if player is yellow
-				} else if (currentPlayer == "Yellow") {
+				} else if (currentPlayer == CellState.P2) {
 
 					modArray[i][column].setFill(Color.YELLOW);
 
@@ -131,16 +131,16 @@ public class Board {
 	 * Purpose: changes currentPlayer. Helper method called when a token is dropped
 	 */
 	public void switchPlayer() {
-		if (currentPlayer == "Red") {
+		if (currentPlayer == CellState.P1) {
 			// System.out.println("successfully changed to yellow");
-			this.currentPlayer = "Yellow";
+			this.currentPlayer = CellState.P2;
 
-		} else if (currentPlayer == "Yellow") {
+		} else if (currentPlayer == CellState.P2) {
 			// System.out.println("successfully changed to red");
-			this.currentPlayer = "Red";
+			this.currentPlayer = CellState.P1;
 
 		} else {
-			this.currentPlayer = "Red";
+			this.currentPlayer = CellState.P1;
 		}
 
 	}
@@ -153,7 +153,7 @@ public class Board {
 	 * @param currentPlayer String representing current colour's turn
 	 * @param col int column specified (where it was dropped)
 	 */
-	public void checkWin(Circle[][] board, String currentPlayer, int col) {
+	public void checkWin(Circle[][] board, CellState currentPlayer, int col) {
 		int fourInARow = 0;
 		for (int i = board.length - 1; i >= 0; i--) {
 			for (Circle rowElement : board[i]) {
@@ -161,11 +161,11 @@ public class Board {
 				//TODO method to display win message
 				
 				//if player colour found, add to the count
-				if (rowElement.getFill() == (Color.RED) && this.currentPlayer == "Red") {
+				if (rowElement.getFill() == (Color.RED) && this.currentPlayer ==CellState.P1) {
 					fourInARow++;
 					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
 
-				} else if (rowElement.getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
+				} else if (rowElement.getFill() == (Color.YELLOW) && this.currentPlayer == CellState.P2) {
 					fourInARow++;
 					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
 
@@ -195,10 +195,10 @@ public class Board {
 			for (Circle row[] : board) {
 				
 				//same concept as row check, count consecutive player pieces
-				if (row[j].getFill() == (Color.RED) && this.currentPlayer == "Red") {
+				if (row[j].getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
 					fourInARow++;
 
-				} else if (row[j].getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
+				} else if (row[j].getFill() == (Color.YELLOW) && this.currentPlayer == CellState.P2) {
 					fourInARow++;
 
 				}
@@ -222,9 +222,9 @@ public class Board {
 		for (int k = 0; k < 12; k++) {
 			if (n <= 6 && k < 6) {
 				for (int l = 0; l < n; l++) {
-					if (board[k][l].getFill() == (Color.RED) && this.currentPlayer == "Red") {
+					if (board[k][l].getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
 						fourInARow++;
-					} else if (board[k][l].getFill() == (Color.YELLOW) && this.currentPlayer == "Yellow") {
+					} else if (board[k][l].getFill() == (Color.YELLOW) && this.currentPlayer == CellState.P2) {
 						fourInARow++;
 					} else {
 						fourInARow = 0;
