@@ -34,6 +34,7 @@ public class ConnectFourGUIDriver extends Application {
 		Circle[][] slots = new Circle[6][7];
 		//current player
 		
+
 		//title screen
 		Label title = new Label("CONNECT 4");
 		title.setStyle("-fx-font: 50 arial");
@@ -58,6 +59,7 @@ public class ConnectFourGUIDriver extends Application {
 		
 
 		
+
 		//row of buttons to for player to press to drop tokens
 		for (int i = 0; i < tileBtns.length; i++) {
 			
