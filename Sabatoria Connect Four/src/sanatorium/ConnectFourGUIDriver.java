@@ -24,6 +24,8 @@ public class ConnectFourGUIDriver extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		
+		//big important thing
+		
 		//boxes!!!
 		VBox hbox = new VBox(10);
 		HBox tileBox = new HBox(5);
@@ -73,6 +75,9 @@ public class ConnectFourGUIDriver extends Application {
 			
 			tileBox.getChildren().add(tileBtns[i]);
 		}
+		
+		//colour tiles to indicate current player
+		board.switchPlayer(tileBtns);
 
 		
 		//creating grid of circles to represent board
@@ -137,7 +142,7 @@ public class ConnectFourGUIDriver extends Application {
 			tileBtns[k].setOnAction(e -> {
 				
 				//drop token, verify win if applicable
-				board.drop(column, slots, board.getCurrentPlayer());
+				board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
 				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
 
 				
@@ -154,9 +159,7 @@ public class ConnectFourGUIDriver extends Application {
 
 	}
 	
-	public void startMenu() {
-		
-		
-	}
+	
+
 
 }
