@@ -9,13 +9,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class Board {
-
 	private Cell[][] board;
 	private int rows;
 	private int cols;
 	private CellState currentPlayer;
 	
-
 	/**
 	 * Constructor for Boards.
 	 * 
@@ -61,7 +59,18 @@ public class Board {
 		return cols;
 	}
 
-
+	public void display() {
+        System.out.println("BOARD");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.printf("%s ", board[i][j]);
+            }
+            System.out.println();
+        }
+    }
+	
+	
+	
 	/**
 	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified
 	 * by the user.
@@ -86,6 +95,7 @@ public class Board {
 				// place red token if player is red
 				if (currentPlayer == CellState.P1) {
 					modArray[i][column].setFill(Color.RED);
+					board[i][column].setState(currentPlayer);
 
 					// System.out.println("it worked! red placed");
 					checkWin(modArray, currentPlayer, column, tileBtns);
@@ -96,6 +106,7 @@ public class Board {
 				} else if (currentPlayer == CellState.P2) {
 
 					modArray[i][column].setFill(Color.YELLOW);
+					board[i][column].setState(currentPlayer);
 
 					checkWin(modArray, currentPlayer, column, tileBtns);
 					switchPlayer(tileBtns);
@@ -271,8 +282,6 @@ public class Board {
 			//tileBtns[i].setStyle("-fx-background-color: white; -fx-font-weight: bold");
 			tileBtns[i].setTextFill(Color.WHITE);
 			tileBtns[i].setDisable(true);
-			
-			
 			
 		}
 
