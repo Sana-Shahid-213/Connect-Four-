@@ -87,14 +87,15 @@ public class Board {
 	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified
 	 * by the user.
 	 * 
-	 * @param column int returned when button above is selected by user
-	 * @param modArray array of buttons representing board
+	 * @param column        int returned when button above is selected by user
+	 * @param modArray      array of buttons representing board
 	 * @param currentPlayer current player and colour of token to drop
 	 */
 	public void drop(int column, Circle[][] modArray, CellState currentPlayer) {
-		
-		boolean placed = false;//checks from the bottom up, so only 1 token should be placed when drop is called.
-		
+
+		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
+								// called.
+
 		for (int i = modArray.length - 1; i >= 0; i--) {
 
 			// if the space is free, add a token
@@ -149,19 +150,20 @@ public class Board {
 	 * Purpose: checks the board for a win, given a specific colour to search for
 	 * (current player
 	 * 
-	 * @param board 2D Array of Buttons representing a board
+	 * @param board         2D Array of Buttons representing a board
 	 * @param currentPlayer String representing current colour's turn
-	 * @param col int column specified (where it was dropped)
+	 * @param col           int column specified (where it was dropped)
 	 */
 	public void checkWin(Circle[][] board, CellState currentPlayer, int col) {
 		int fourInARow = 0;
 		for (int i = board.length - 1; i >= 0; i--) {
 			for (Circle rowElement : board[i]) {
-				// start a count of the player's colour to 4, reset the count if not. if 4 is reached then display win msg
-				//TODO method to display win message
-				
-				//if player colour found, add to the count
-				if (rowElement.getFill() == (Color.RED) && this.currentPlayer ==CellState.P1) {
+				// start a count of the player's colour to 4, reset the count if not. if 4 is
+				// reached then display win msg
+				// TODO method to display win message
+
+				// if player colour found, add to the count
+				if (rowElement.getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
 					fourInARow++;
 					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
 
@@ -170,14 +172,14 @@ public class Board {
 					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
 
 				}
-				//if it is not the player's colour, reset count.
+				// if it is not the player's colour, reset count.
 				else {
 					// System.out.println(currentPlayer + " BACK TO ZERO");
 					fourInARow = 0;
 					// System.out.println(fourInARow);
 
 				}
-				//if 4 in a row is reached, congratulate player
+				// if 4 in a row is reached, congratulate player
 				if (fourInARow >= 4) {
 					System.out.println("YIPPEE " + currentPlayer + " you WON horizontally");
 					// TODO end game here.
@@ -193,8 +195,8 @@ public class Board {
 
 			// move up through rows
 			for (Circle row[] : board) {
-				
-				//same concept as row check, count consecutive player pieces
+
+				// same concept as row check, count consecutive player pieces
 				if (row[j].getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
 					fourInARow++;
 
