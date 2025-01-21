@@ -17,16 +17,20 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class ConnectFourGUIDriver extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
 
+		// big important thing
+
 		// boxes!!!
-		VBox vbox = new VBox(10);
+		VBox hbox = new VBox(10);
 		HBox tileBox = new HBox(5);
-		HBox hbox = new HBox(30);
+		HBox Connect4 = new HBox(30);
 		Button[] tileBtns = new Button[7];
 
 		Board board = new Board(6, 7);
@@ -58,13 +62,16 @@ public class ConnectFourGUIDriver extends Application {
 		for (int i = 0; i < tileBtns.length; i++) {
 
 			tileBtns[i] = new Button(String.valueOf(i + 1));
-			tileBtns[i].setStyle("-fx-font: 20 arial");
+			tileBtns[i].setStyle("-fx-font: 20 arial; -fx-font-weight: bold; -fx-text-fill: white");
 			tileBtns[i].setPrefSize(65, 60);
 
 			// TODO colour change
 
 			tileBox.getChildren().add(tileBtns[i]);
 		}
+
+		// colour tiles to indicate current player
+		board.switchPlayer(tileBtns);
 
 		// creating grid of circles to represent board
 		for (int i = 0; i < board.getRows(); i++) {
@@ -73,7 +80,7 @@ public class ConnectFourGUIDriver extends Application {
 
 				slots[i][j].setFill(Color.MIDNIGHTBLUE);
 				slots[i][j].setDisable(true);
-				hbox.getChildren().addAll(slots[i][j]);
+				Connect4.getChildren().addAll(slots[i][j]);
 			}
 		}
 		// gridpane, holding board circles??????
@@ -89,23 +96,23 @@ public class ConnectFourGUIDriver extends Application {
 		}
 
 		// bonus content
-		vbox.setAlignment(Pos.CENTER);
+		hbox.setAlignment(Pos.CENTER);
 
 		tileBox.setAlignment(Pos.CENTER);
-		hbox.setAlignment(Pos.CENTER);
+		Connect4.setAlignment(Pos.CENTER);
 
 		// hbox.getChildren().addAll(tileBox, gridPane, Connect4);
 
 		// start of game - display menu,
-		Utils.displayMenu(vbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
+		Utils.displayMenu(hbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
 		twoPlayers.setOnAction(e -> {
-			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, vbox, credits);
+			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, hbox, credits);
 		});
 
 		Background background = new Background(new BackgroundFill(Color.MEDIUMBLUE, null, null));
-		vbox.setBackground(background);
+		hbox.setBackground(background);
 
-		Scene scene = new Scene(vbox, 500, 500);
+		Scene scene = new Scene(hbox, 500, 500);
 
 		stage.setScene(scene);
 		stage.show();
@@ -118,7 +125,7 @@ public class ConnectFourGUIDriver extends Application {
 			tileBtns[k].setOnAction(e -> {
 
 				// drop token, verify win if applicable
-				board.drop(column, slots, board.getCurrentPlayer());
+				board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
 				// TODO modify cell state too!!! also make currentPlayer enum maybe? research
 				// later
 
@@ -131,10 +138,6 @@ public class ConnectFourGUIDriver extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
-
-	}
-
-	public void startMenu() {
 
 	}
 

@@ -1,9 +1,12 @@
 package sanatorium;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class Board {
 
@@ -11,7 +14,9 @@ public class Board {
 	private int rows;
 	private int cols;
 	private CellState currentPlayer;
-//teehee my commits are not working LOL hehe heheh
+
+	private boolean endedGame = false;
+
 	/**
 	 * Constructor for Boards.
 	 * 
@@ -91,7 +96,14 @@ public class Board {
 	 * @param modArray      array of buttons representing board
 	 * @param currentPlayer current player and colour of token to drop
 	 */
+
 	public void drop(int column, Circle[][] modArray, CellState currentPlayer) {
+
+		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
+								// called.}
+	}
+
+	public void drop(int column, Circle[][] modArray, CellState currentPlayer, Button[] tileBtns) {
 
 		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
 								// called.
@@ -107,8 +119,8 @@ public class Board {
 					modArray[i][column].setFill(Color.RED);
 
 					// System.out.println("it worked! red placed");
-					checkWin(modArray, currentPlayer, column);
-					switchPlayer();
+					checkWin(modArray, currentPlayer, column, tileBtns);
+					switchPlayer(tileBtns);
 					placed = true;
 
 					// place yellow token if player is yellow
@@ -116,8 +128,8 @@ public class Board {
 
 					modArray[i][column].setFill(Color.YELLOW);
 
-					checkWin(modArray, currentPlayer, column);
-					switchPlayer();
+					checkWin(modArray, currentPlayer, column, tileBtns);
+					switchPlayer(tileBtns);
 
 					// System.out.println("it worked! yellow placed");
 					placed = true;
@@ -131,7 +143,7 @@ public class Board {
 	/**
 	 * Purpose: changes currentPlayer. Helper method called when a token is dropped
 	 */
-	public void switchPlayer() {
+	public void switchPlayer(Button tileBtns[]) {
 		if (currentPlayer == CellState.P1) {
 			// System.out.println("successfully changed to yellow");
 			this.currentPlayer = CellState.P2;
@@ -142,6 +154,16 @@ public class Board {
 
 		} else {
 			this.currentPlayer = CellState.P1;
+		}
+		for (int i = 0; i < tileBtns.length; i++) {
+
+			if (this.currentPlayer == CellState.P1) {
+				tileBtns[i].setStyle("-fx-background-color: red; -fx-font: 20 arial; -fx-font-weight: bold;");
+
+			} else if (this.currentPlayer == CellState.P2) {
+				tileBtns[i].setStyle("-fx-background-color: yellow; -fx-font: 20 arial; -fx-font-weight: bold;");
+
+			}
 		}
 
 	}
@@ -154,7 +176,7 @@ public class Board {
 	 * @param currentPlayer String representing current colour's turn
 	 * @param col           int column specified (where it was dropped)
 	 */
-	public void checkWin(Circle[][] board, CellState currentPlayer, int col) {
+	public void checkWin(Circle[][] board, CellState currentPlayer, int col, Button[] tileBtns) {
 		int fourInARow = 0;
 		for (int i = board.length - 1; i >= 0; i--) {
 			for (Circle rowElement : board[i]) {
@@ -183,6 +205,7 @@ public class Board {
 				if (fourInARow >= 4) {
 					System.out.println("YIPPEE " + currentPlayer + " you WON horizontally");
 					// TODO end game here.
+					gameOver(tileBtns, currentPlayer);
 
 				}
 
@@ -211,6 +234,7 @@ public class Board {
 				if (fourInARow >= 4) {
 					System.out.println("YIPPEE " + currentPlayer + " YOU WON VERTICALLY");
 					// TODO end game here - make game end method?? boolean???
+					gameOver(tileBtns, currentPlayer);
 				}
 			}
 
@@ -234,10 +258,36 @@ public class Board {
 					if (fourInARow >= 4) {
 						System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
 						// TODO end game here
+						gameOver(tileBtns, currentPlayer);
 					}
 
 				}
 			}
+		}
+
+	}
+
+	public void gameOver(Button[] tileBtns, CellState winningPlayer) {
+		endedGame = true;
+		// disable buttons now.
+		System.out.println("YO IT WORKS");
+		String winner = "";
+
+		if (winningPlayer == CellState.P1) {
+			winner = "1";
+		} else if (winningPlayer == CellState.P2) {
+			winner = "2";
+		}
+
+		String[] pWins = { "P", winner, " ", "W", "I", "N", "S" };
+		switchPlayer(tileBtns);
+		for (int i = 0; i < tileBtns.length; i++) {
+			// tileBtns[i].setStyle("-fx-background-color: darkblue");
+			tileBtns[i].setText(pWins[i]);
+			// tileBtns[i].setStyle("-fx-background-color: white; -fx-font-weight: bold");
+			tileBtns[i].setTextFill(Color.WHITE);
+			tileBtns[i].setDisable(true);
+
 		}
 
 	}
