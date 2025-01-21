@@ -17,7 +17,6 @@ public class Board {
 	private boolean endedGame = false;
 	
 
-
 	/**
 	 * Constructor for Boards.
 	 * 
@@ -93,16 +92,16 @@ public class Board {
 	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified
 	 * by the user.
 	 * 
-	 * @param column        int returned when button above is selected by user
-	 * @param modArray      array of buttons representing board
+	 * @param column int returned when button above is selected by user
+	 * @param modArray array of buttons representing board
 	 * @param currentPlayer current player and colour of token to drop
 	 */
 
 
 	public void drop(int column, Circle[][] modArray, CellState currentPlayer, Button[] tileBtns) {
-		
-		boolean placed = false;//checks from the bottom up, so only 1 token should be placed when drop is called.
-		
+
+		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
+								// called.
 
 		for (int i = modArray.length - 1; i >= 0; i--) {
 
@@ -262,30 +261,33 @@ public class Board {
 		}
 
 	}
-
 	public void gameOver(Button[] tileBtns, CellState winningPlayer) {
 		endedGame = true;
-		// disable buttons now.
+		//disable buttons now.
 		System.out.println("YO IT WORKS");
 		String winner = "";
-
+		
 		if (winningPlayer == CellState.P1) {
 			winner = "1";
-		} else if (winningPlayer == CellState.P2) {
+		}else if (winningPlayer == CellState.P2) {
 			winner = "2";
 		}
-
-		String[] pWins = { "P", winner, " ", "W", "I", "N", "S" };
-		switchPlayer(tileBtns);
-		for (int i = 0; i < tileBtns.length; i++) {
-			// tileBtns[i].setStyle("-fx-background-color: darkblue");
+		
+	String[] pWins = {"P", winner, " ", "W","I", "N", "S"};
+	switchPlayer(tileBtns);
+	for (int i = 0; i < tileBtns.length; i++) {
+			//tileBtns[i].setStyle("-fx-background-color: darkblue");
 			tileBtns[i].setText(pWins[i]);
-			// tileBtns[i].setStyle("-fx-background-color: white; -fx-font-weight: bold");
+			//tileBtns[i].setStyle("-fx-background-color: white; -fx-font-weight: bold");
 			tileBtns[i].setTextFill(Color.WHITE);
 			tileBtns[i].setDisable(true);
-
+			
+			
+			
 		}
 
+		
 	}
+
 
 }
