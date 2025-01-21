@@ -8,6 +8,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/*
+ * 
+ * Purpose: contains all of the Requirements and Functionalities for the Album and its tracks
+ * @author Sana Shahid & Victoria Lee
+ * @date Jan 20th 2025
+ */
+
 public class Board {
 	private Cell[][] board;
 	private int rows;
@@ -59,6 +66,9 @@ public class Board {
 		return cols;
 	}
 
+	/**
+	 * 
+	 */
 	public void display() {
         System.out.println("BOARD");
         for (int i = 0; i < rows; i++) {
@@ -72,7 +82,7 @@ public class Board {
 	
 	
 	/**
-	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified
+	 * drops a token into the 2D Array of Buttons, into a column specified
 	 * by the user.
 	 * 
 	 * @param column int returned when button above is selected by user
@@ -94,7 +104,7 @@ public class Board {
 
 				// place red token if player is red
 				if (currentPlayer == CellState.P1) {
-					modArray[i][column].setFill(Color.RED);
+					modArray[i][column].setFill(Color.CRIMSON);
 					board[i][column].setState(currentPlayer);
 
 					// System.out.println("it worked! red placed");
@@ -104,8 +114,7 @@ public class Board {
 
 					// place yellow token if player is yellow
 				} else if (currentPlayer == CellState.P2) {
-
-					modArray[i][column].setFill(Color.YELLOW);
+					modArray[i][column].setFill(Color.GOLD);
 					board[i][column].setState(currentPlayer);
 
 					checkWin(modArray, currentPlayer, column, tileBtns);
@@ -121,7 +130,7 @@ public class Board {
 	}
 
 	/**
-	 * Purpose: changes currentPlayer. Helper method called when a token is dropped
+	 * changes currentPlayer. Helper method called when a token is dropped
 	 */
 	public void switchPlayer(Button tileBtns[]) {
 		if (currentPlayer == CellState.P1) {
@@ -165,11 +174,11 @@ public class Board {
 				// TODO method to display win message
 
 				// if player colour found, add to the count
-				if (rowElement.getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
+				if (rowElement.getFill() == (Color.CRIMSON) && this.currentPlayer == CellState.P1) {
 					fourInARow++;
 					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
 
-				} else if (rowElement.getFill() == (Color.YELLOW) && this.currentPlayer == CellState.P2) {
+				} else if (rowElement.getFill() == (Color.GOLD) && this.currentPlayer == CellState.P2) {
 					fourInARow++;
 					// System.out.println(currentPlayer + " GOTCHA " + fourInARow);
 
@@ -200,10 +209,10 @@ public class Board {
 			for (Circle row[] : board) {
 
 				// same concept as row check, count consecutive player pieces
-				if (row[j].getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
+				if (row[j].getFill() == (Color.CRIMSON) && this.currentPlayer == CellState.P1) {
 					fourInARow++;
 
-				} else if (row[j].getFill() == (Color.YELLOW) && this.currentPlayer == CellState.P2) {
+				} else if (row[j].getFill() == (Color.GOLD) && this.currentPlayer == CellState.P2) {
 					fourInARow++;
 
 				}
@@ -232,10 +241,10 @@ public class Board {
                     board[k+2][l+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
                     board[k+3][l+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
                     gameOver(tileBtns, currentPlayer);
-                }else if (board[k][l].getFill() == (Color.RED) && currentPlayer == CellState.P1 && 
-                        board[k+1][l+1].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
-                        board[k+2][l+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
-                        board[k+3][l+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
+                }else if (board[k][l].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 && 
+                        board[k+1][l+1].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
+                        board[k+2][l+2].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
+                        board[k+3][l+3].getFill() == (Color.GOLD) && currentPlayer == CellState.P2) {
                         gameOver(tileBtns, currentPlayer);
                         System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
                     }
@@ -245,16 +254,16 @@ public class Board {
         // checking from bottom left to top right
         for (int m=5; m>=3; m--) {
             for (int n=0; n<=3; n++) {
-                if (board[m][n].getFill() == (Color.RED) && currentPlayer == CellState.P1 && 
-                    board[m-1][n+1].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
-                    board[m-2][n+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
-                    board[m-3][n+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
+                if (board[m][n].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 && 
+                    board[m-1][n+1].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
+                    board[m-2][n+2].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
+                    board[m-3][n+3].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1) {
                     gameOver(tileBtns, currentPlayer);
                 }
-                if (board[m][n].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2 && 
-                        board[m-1][n+1].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2 &&
-                        board[m-2][n+2].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2 &&
-                        board[m-3][n+3].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2) {
+                if (board[m][n].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 && 
+                        board[m-1][n+1].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
+                        board[m-2][n+2].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
+                        board[m-3][n+3].getFill() == (Color.GOLD) && currentPlayer == CellState.P2) {
                         gameOver(tileBtns, currentPlayer);
                         System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
                     }
@@ -262,10 +271,14 @@ public class Board {
         }
 
 	}
+	/**
+	 * 
+	 * @param tileBtns
+	 * @param winningPlayer
+	 */
 	public void gameOver(Button[] tileBtns, CellState winningPlayer) {
 		
 		//disable buttons now.
-		//System.out.println("YO IT WORKS");
 		String winner = "";
 		
 		if (winningPlayer == CellState.P1) {
@@ -277,9 +290,7 @@ public class Board {
 	String[] pWins = {"P", winner, " ", "W","I", "N", "S"};
 	switchPlayer(tileBtns);
 	for (int i = 0; i < tileBtns.length; i++) {
-			//tileBtns[i].setStyle("-fx-background-color: darkblue");
 			tileBtns[i].setText(pWins[i]);
-			//tileBtns[i].setStyle("-fx-background-color: white; -fx-font-weight: bold");
 			tileBtns[i].setTextFill(Color.WHITE);
 			tileBtns[i].setDisable(true);
 			

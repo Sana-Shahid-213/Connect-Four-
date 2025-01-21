@@ -24,7 +24,7 @@ public class ConnectFourGUIDriver extends Application {
 		HBox tileBox = new HBox(5);
 		HBox hbox = new HBox(30);
 		Button[] tileBtns = new Button[7];
-// board = new Board(6, 7);
+		Board board = new Board(6, 7);
 		Circle[][] slots = new Circle[6][7];
 		
 		// current player
@@ -77,6 +77,7 @@ public class ConnectFourGUIDriver extends Application {
 				slots[i][j] = new Circle(70, 55, 30);
 
 				slots[i][j].setFill(Color.MIDNIGHTBLUE);
+				//slots[i][j].setStyle("-fx-background-color:#000000");
 				slots[i][j].setDisable(true);
 				hbox.getChildren().addAll(slots[i][j]);
 			}
@@ -97,9 +98,6 @@ public class ConnectFourGUIDriver extends Application {
 		vbox.setAlignment(Pos.CENTER);
 		tileBox.setAlignment(Pos.CENTER);
 		hbox.setAlignment(Pos.CENTER);
-
-	
-
 
 		// start of game - display menu, start game when appropriate button is pressed
 		Utils.displayMenu(vbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
@@ -127,11 +125,9 @@ public class ConnectFourGUIDriver extends Application {
 				board.display();
 				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
 
-
 	});}
 		}
 		
-
 	public static void main(String[] args) {
 		launch(args);
 
