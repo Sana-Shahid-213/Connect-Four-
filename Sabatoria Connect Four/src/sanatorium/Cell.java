@@ -41,8 +41,7 @@ public class Cell {
 	}
 	
 	/**
-	 * Constructor
-	 * String representation of a cell
+	 * String representation of a cell, printing to console for visual representation
 	 */
 	@Override
 	public String toString() {
