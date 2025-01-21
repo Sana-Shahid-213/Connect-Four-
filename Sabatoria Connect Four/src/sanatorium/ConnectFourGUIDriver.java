@@ -1,7 +1,7 @@
 package sanatorium;
 
 import javafx.application.Application;
-
+import java.util.Random;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,7 +27,7 @@ public class ConnectFourGUIDriver extends Application {
 
 		VBox vbox = new VBox(10);
 		HBox tileBox = new HBox(5);
-		HBox Connect4 = new HBox(30);
+		HBox hbox = new HBox(30);
 		Button[] tileBtns = new Button[7];
 
 		Board board = new Board(6, 7);
@@ -84,7 +84,7 @@ public class ConnectFourGUIDriver extends Application {
 
 				slots[i][j].setFill(Color.MIDNIGHTBLUE);
 				slots[i][j].setDisable(true);
-				Connect4.getChildren().addAll(slots[i][j]);
+				hbox.getChildren().addAll(slots[i][j]);
 			}
 		}
 		//A 7 by 6 Grid to acting as the Connect 4 Board holding the slots
@@ -102,7 +102,7 @@ public class ConnectFourGUIDriver extends Application {
 		// bonus content
 		vbox.setAlignment(Pos.CENTER);
 		tileBox.setAlignment(Pos.CENTER);
-		Connect4.setAlignment(Pos.CENTER);
+		hbox.setAlignment(Pos.CENTER);
 
 		// hbox.getChildren().addAll(tileBox, gridPane, Connect4);
 
@@ -139,8 +139,4 @@ public class ConnectFourGUIDriver extends Application {
 		launch(args);
 
 	}}
-
-	
-
-
 

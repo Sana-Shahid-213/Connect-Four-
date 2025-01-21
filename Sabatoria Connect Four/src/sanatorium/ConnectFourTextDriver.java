@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ConnectFourTextDriver {
 
 	public static void main(String[] args) {
-		
+
 		Scanner in = new Scanner(System.in);
 		int column = 0;
 		int row;
@@ -16,15 +16,14 @@ public class ConnectFourTextDriver {
 				{ "O", "O", "O", "O", "O", "O", "O" }, { "O", "O", "O", "O", "O", "O", "O" },
 				{ "O", "O", "O", "O", "O", "O", "O" }, { "O", "O", "O", "O", "O", "O", "O" },
 				{ "O", "O", "O", "O", "O", "O", "O" } };
-		
-		
-		//start time
+
+		// start time
 		menu();
 		printBoard(boardArray2);
-		
-		//for (int i = 0; i < boardArray2.length - 1; i++) {
-			//System.out.println(Arrays.toString(boardArray2[i]));
-		//}
+
+		// for (int i = 0; i < boardArray2.length - 1; i++) {
+		// System.out.println(Arrays.toString(boardArray2[i]));
+		// }
 		// prompting user input
 		// System.out.println(" ");
 
@@ -90,68 +89,65 @@ public class ConnectFourTextDriver {
 			}
 		}
 	}
-	
-	//checking horizontally for wins
+
+	// checking horizontally for wins
 	public static void checkRow(String[][] board, String colour) {
-		//TODO 
+		// TODO
 		int fourInARow = 0;
-		
-		for (int i = board.length-1; i >= 0; i--) {
+
+		for (int i = board.length - 1; i >= 0; i--) {
 			for (String rowElement : board[i]) {
-				//TODO check each element of the row, given a certain colour to search for.
-				//this will be called right after a turn.
-				//start a count to 4, reset the count if not. if 4 is reached then display win msg.
-				
+				// TODO check each element of the row, given a certain colour to search for.
+				// this will be called right after a turn.
+				// start a count to 4, reset the count if not. if 4 is reached then display win
+				// msg.
+
 				if (rowElement == colour) {
-					//System.out.println(rowElement + "GOTCHA");
+					// System.out.println(rowElement + "GOTCHA");
 					fourInARow++;
-				}else {
-					//System.out.println("BACK TO ZERO");
+				} else {
+					// System.out.println("BACK TO ZERO");
 					fourInARow = 0;
-					
-				}if (fourInARow >= 4) {
-					System.out.println("YIPPEE " + colour + " you WON horizontally");
-					
+
 				}
-				
+				if (fourInARow >= 4) {
+					System.out.println("YIPPEE " + colour + " you WON horizontally");
+
+				}
+
 			}
-			
-			
-			
-			
+
 		}
-		}
-		
-	//checking vertically for wins
+	}
+
+	// checking vertically for wins
 	public static void checkColumn(String[][] board, String colour) {
-		//start at index of row, move up thru columns instead [row][column]
-		//column is i, row 
+		// start at index of row, move up thru columns instead [row][column]
+		// column is i, row
 		int fourInARow = 0;
-		for (int i = board.length-1; i>=0; i--) {
-			
-			//move up through rows
+		for (int i = board.length - 1; i >= 0; i--) {
+
+			// move up through rows
 			for (String[] row : board) {
-			if (row[i] == colour) {
-				fourInARow++;
-			}else {
-				fourInARow = 0;
-			}if (fourInARow >= 4) {
-				System.out.println("YIPPEE " + colour + " YOU WON VERTICALLY");
+				if (row[i] == colour) {
+					fourInARow++;
+				} else {
+					fourInARow = 0;
+				}
+				if (fourInARow >= 4) {
+					System.out.println("YIPPEE " + colour + " YOU WON VERTICALLY");
+				}
 			}
-			}
-			
+
 		}
 	}
-	
-	public static void checkDiagonal(String[][] board, String colour ) {
+
+	public static void checkDiagonal(String[][] board, String colour) {
 		int fourDiagonal = 0;
-		for (int i = board.length-1; i>=0; i--) {
-			
-			
+		for (int i = board.length - 1; i >= 0; i--) {
 		}
 	}
-	
-	
+
 	// prints the updated board.
 	public static void printBoard(String[][] board) {
 		for (int j = 0; j < board.length; j++) {
@@ -160,7 +156,7 @@ public class ConnectFourTextDriver {
 		}
 	}
 
-	//prints menu
+	// prints menu
 	/**
 	 * 
 	 */
@@ -168,7 +164,7 @@ public class ConnectFourTextDriver {
 
 		System.out.println("Connect Four");
 		System.out.println("--------------");
-		
+
 		System.out.println("\nHow to play: ");
 		System.out.println("Decide what colour you would like to be");
 		System.out.println("Enter the position of where you would like to drop your colour token ");

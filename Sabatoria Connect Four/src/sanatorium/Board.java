@@ -9,14 +9,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class Board {
-
 	private Cell[][] board;
 	private int rows;
 	private int cols;
 	private CellState currentPlayer;
 	private boolean endedGame = false;
 	
-
 	/**
 	 * Constructor for Boards.
 	 * 
@@ -283,8 +281,6 @@ public class Board {
 			//tileBtns[i].setStyle("-fx-background-color: white; -fx-font-weight: bold");
 			tileBtns[i].setTextFill(Color.WHITE);
 			tileBtns[i].setDisable(true);
-			
-			
 			
 		}
 
