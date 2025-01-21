@@ -25,9 +25,6 @@ public class ConnectFourGUIDriver extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 
-		// big important thing
-
-		// boxes!!!
 		VBox hbox = new VBox(10);
 		HBox tileBox = new HBox(5);
 		HBox Connect4 = new HBox(30);
@@ -61,14 +58,20 @@ public class ConnectFourGUIDriver extends Application {
 		// row of buttons to for player to press to drop tokens
 		for (int i = 0; i < tileBtns.length; i++) {
 
+
 			tileBtns[i] = new Button(String.valueOf(i + 1));
+
+			
+			tileBtns[i] = new Button(String.valueOf(i+1));
+
 			tileBtns[i].setStyle("-fx-font: 20 arial; -fx-font-weight: bold; -fx-text-fill: white");
 			tileBtns[i].setPrefSize(65, 60);
 
-			// TODO colour change
-
 			tileBox.getChildren().add(tileBtns[i]);
 		}
+		
+		//colour tiles to indicate current player
+		board.switchPlayer(tileBtns);
 
 		// colour tiles to indicate current player
 		board.switchPlayer(tileBtns);
@@ -112,33 +115,37 @@ public class ConnectFourGUIDriver extends Application {
 		Background background = new Background(new BackgroundFill(Color.MEDIUMBLUE, null, null));
 		hbox.setBackground(background);
 
+		
+		
 		Scene scene = new Scene(hbox, 500, 500);
-
-		stage.setScene(scene);
+		
+		
+		stage.setScene(scene);		
 		stage.show();
-
-		// when top buttons are pressed, drop into user indicated column.
-		// System.out.println("checkeroo state is " + board.getCurrentPlayer() );
-		for (int k = 0; k < tileBtns.length; k++) {
+		
+		
+		//when top buttons are pressed, drop into user indicated column.
+		//System.out.println("checkeroo state is " + board.getCurrentPlayer() );
+		for(int k = 0; k < tileBtns.length; k++) {
 			int column = k;
-
+			
 			tileBtns[k].setOnAction(e -> {
-
-				// drop token, verify win if applicable
+				
+				//drop token, verify win if applicable
 				board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
-				// TODO modify cell state too!!! also make currentPlayer enum maybe? research
-				// later
+				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
 
-			});
-
+	});}
 		}
-
-	}
+		
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
 
-	}
+	}}
 
-}
+	
+
+
+

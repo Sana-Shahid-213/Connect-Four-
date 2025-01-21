@@ -14,8 +14,9 @@ public class Board {
 	private int rows;
 	private int cols;
 	private CellState currentPlayer;
-
 	private boolean endedGame = false;
+	
+
 
 	/**
 	 * Constructor for Boards.
@@ -97,16 +98,11 @@ public class Board {
 	 * @param currentPlayer current player and colour of token to drop
 	 */
 
-	public void drop(int column, Circle[][] modArray, CellState currentPlayer) {
-
-		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
-								// called.}
-	}
 
 	public void drop(int column, Circle[][] modArray, CellState currentPlayer, Button[] tileBtns) {
-
-		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
-								// called.
+		
+		boolean placed = false;//checks from the bottom up, so only 1 token should be placed when drop is called.
+		
 
 		for (int i = modArray.length - 1; i >= 0; i--) {
 
