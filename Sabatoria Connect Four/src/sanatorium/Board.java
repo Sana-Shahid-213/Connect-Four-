@@ -112,6 +112,7 @@ public class Board {
 				// place red token if player is red
 				if (currentPlayer == CellState.P1) {
 					modArray[i][column].setFill(Color.RED);
+					board[i][column].setState(currentPlayer);
 
 					// System.out.println("it worked! red placed");
 					checkWin(modArray, currentPlayer, column, tileBtns);
@@ -122,6 +123,7 @@ public class Board {
 				} else if (currentPlayer == CellState.P2) {
 
 					modArray[i][column].setFill(Color.YELLOW);
+					board[i][column].setState(currentPlayer);
 
 					checkWin(modArray, currentPlayer, column, tileBtns);
 					switchPlayer(tileBtns);

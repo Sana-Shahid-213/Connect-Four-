@@ -25,13 +25,14 @@ public class ConnectFourGUIDriver extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 
-		VBox hbox = new VBox(10);
+		VBox vbox = new VBox(10);
 		HBox tileBox = new HBox(5);
 		HBox Connect4 = new HBox(30);
 		Button[] tileBtns = new Button[7];
 
 		Board board = new Board(6, 7);
 		Circle[][] slots = new Circle[6][7];
+		
 		// current player
 
 		// title screen
@@ -86,7 +87,7 @@ public class ConnectFourGUIDriver extends Application {
 				Connect4.getChildren().addAll(slots[i][j]);
 			}
 		}
-		// gridpane, holding board circles??????
+		//A 7 by 6 Grid to acting as the Connect 4 Board holding the slots
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.TOP_CENTER);
 		gridPane.setHgap(10);
@@ -99,30 +100,23 @@ public class ConnectFourGUIDriver extends Application {
 		}
 
 		// bonus content
-		hbox.setAlignment(Pos.CENTER);
-
+		vbox.setAlignment(Pos.CENTER);
 		tileBox.setAlignment(Pos.CENTER);
 		Connect4.setAlignment(Pos.CENTER);
 
 		// hbox.getChildren().addAll(tileBox, gridPane, Connect4);
 
 		// start of game - display menu,
-		Utils.displayMenu(hbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
+		Utils.displayMenu(vbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
 		twoPlayers.setOnAction(e -> {
-			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, hbox, credits);
+			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, vbox, credits);
 		});
 
 		Background background = new Background(new BackgroundFill(Color.MEDIUMBLUE, null, null));
-		hbox.setBackground(background);
-
-		
-		
-		Scene scene = new Scene(hbox, 500, 500);
-		
-		
+		vbox.setBackground(background);
+		Scene scene = new Scene(vbox, 500, 500);	
 		stage.setScene(scene);		
 		stage.show();
-		
 		
 		//when top buttons are pressed, drop into user indicated column.
 		//System.out.println("checkeroo state is " + board.getCurrentPlayer() );
@@ -133,6 +127,7 @@ public class ConnectFourGUIDriver extends Application {
 				
 				//drop token, verify win if applicable
 				board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
+				board.display();
 				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
 
 	});}
