@@ -1,6 +1,8 @@
 package sanatorium;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+
 import java.util.Random;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,8 +28,6 @@ public class ConnectFourGUIDriver extends Application {
 		Button[] tileBtns = new Button[7];
 		Board board = new Board(6, 7);
 		Circle[][] slots = new Circle[6][7];
-		
-		// current player
 
 		// title screen
 		Label title = new Label("CONNECT 4");
@@ -49,16 +49,29 @@ public class ConnectFourGUIDriver extends Application {
 		credits.setStyle("-fx-font: 25 arial");
 		credits.setTextFill(Color.WHITE);
 		credits.setAlignment(Pos.CENTER);
+		
+		//Restart game
+		HBox gameOptions = new HBox(10);
+		Button restart = new Button("RESET BOARD");
+		Button quit = new Button("QUIT");
+		restart.setStyle("-fx-font: 25 arial");
+		quit.setStyle("-fx-font: 25 arial");
+		gameOptions.getChildren().addAll(restart, quit);
+		gameOptions.setAlignment(Pos.CENTER);
 
+		//when restart button is pressed, restart
+				restart.setOnAction(e -> {
+					board.clearBoard(tileBtns, slots, board);
+				});
+				
+				//when quit button is pressed, quit
+				quit.setOnAction(e -> {
+					Platform.exit();
+				});
+				
 		// row of buttons to for player to press to drop tokens
 		for (int i = 0; i < tileBtns.length; i++) {
-
-
-			tileBtns[i] = new Button(String.valueOf(i + 1));
-
-			
 			tileBtns[i] = new Button(String.valueOf(i+1));
-
 			tileBtns[i].setStyle("-fx-font: 20 arial; -fx-font-weight: bold; -fx-text-fill: white");
 			tileBtns[i].setPrefSize(65, 60);
 
@@ -68,8 +81,6 @@ public class ConnectFourGUIDriver extends Application {
 		//colour tiles to indicate current player
 		board.switchPlayer(tileBtns);
 
-		// colour tiles to indicate current player
-		board.switchPlayer(tileBtns);
 
 		// creating grid of circles to represent board
 		for (int i = 0; i < board.getRows(); i++) {
@@ -77,7 +88,6 @@ public class ConnectFourGUIDriver extends Application {
 				slots[i][j] = new Circle(70, 55, 30);
 
 				slots[i][j].setFill(Color.MIDNIGHTBLUE);
-				//slots[i][j].setStyle("-fx-background-color:#000000");
 				slots[i][j].setDisable(true);
 				hbox.getChildren().addAll(slots[i][j]);
 			}
@@ -95,7 +105,7 @@ public class ConnectFourGUIDriver extends Application {
 		}
 
 		// bonus content
-		vbox.setAlignment(Pos.CENTER);
+		vbox.setAlignment(Pos.TOP_CENTER);
 		tileBox.setAlignment(Pos.CENTER);
 		hbox.setAlignment(Pos.CENTER);
 
@@ -103,31 +113,27 @@ public class ConnectFourGUIDriver extends Application {
 		Utils.displayMenu(vbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
 
 		twoPlayers.setOnAction(e -> {
-			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, vbox, credits);
+			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, vbox, credits, gameOptions);
 		});
-
+		
+		//blue background
 		Background background = new Background(new BackgroundFill(Color.MEDIUMBLUE, null, null));
 		vbox.setBackground(background);
-		Scene scene = new Scene(vbox, 500, 500);	
+		Scene scene = new Scene(vbox, 500, 550);	
 		stage.setScene(scene);		
 		stage.show();
 		
 		//when top buttons are pressed, drop into user indicated column.
-		//System.out.println("checkeroo state is " + board.getCurrentPlayer() );
 		for(int k = 0; k < tileBtns.length; k++) {
 			int column = k;
-			
 			tileBtns[k].setOnAction(e -> {
-				
-				//drop token, verify win if applicable
-				board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
-
-				board.display();
-				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
-
+			//drop token, verify win if applicable
+			board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
+			board.display();
 	});}
-		}
 		
+		
+	}
 	public static void main(String[] args) {
 		launch(args);
 

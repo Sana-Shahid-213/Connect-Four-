@@ -15,9 +15,9 @@ public class Utils {
 	}
 
 	public static void startGame(Label lbl, Button onePlayer, Button twoPlayers, HBox tileBox, GridPane connectFour,
-			VBox hbox, Label credits) {
+			VBox hbox, Label credits, HBox gameOptions) {
 		hbox.getChildren().removeAll(lbl, onePlayer, twoPlayers, credits);
-		hbox.getChildren().addAll(tileBox, connectFour);
+		hbox.getChildren().addAll(tileBox, connectFour, gameOptions);
 	}
 
 	public static void gameOver(Label lbl, Button onePlayer, Button twoPlayers, HBox tileBox, GridPane connectFour,

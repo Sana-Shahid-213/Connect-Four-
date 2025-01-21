@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 /*
  * 
@@ -141,9 +142,9 @@ public class Board {
 			// System.out.println("successfully changed to red");
 			this.currentPlayer = CellState.P1;
 
-		} else {
+		} /*else {
 			this.currentPlayer = CellState.P1;
-		}
+		}*/
 		for (int i = 0; i < tileBtns.length; i++) {
 
 			if (this.currentPlayer == CellState.P1) {
@@ -236,10 +237,10 @@ public class Board {
 		//different approach
 		for (int k=0; k<=2; k++) {
             for (int l=0; l<=3; l++) {
-                if (board[k][l].getFill() == (Color.RED) && currentPlayer == CellState.P1 && 
-                    board[k+1][l+1].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
-                    board[k+2][l+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
-                    board[k+3][l+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
+                if (board[k][l].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 && 
+                    board[k+1][l+1].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
+                    board[k+2][l+2].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
+                    board[k+3][l+3].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1) {
                     gameOver(tileBtns, currentPlayer);
                 }else if (board[k][l].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 && 
                         board[k+1][l+1].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
@@ -298,6 +299,21 @@ public class Board {
 
 		
 	}
+	
+	public void clearBoard(Button[] tileBtns, Circle[][] modArray, Board board) {
+		for (int i = 0; i < board.getRows(); i++) {
+			for (int j = 0; j < board.getCols(); j++) {
+				modArray[i][j].setFill(Color.MIDNIGHTBLUE);
+			
+			}
+		}
+		for (int i = 0; i < tileBtns.length; i++) {
+			tileBtns[i].setText(Integer.toString(i+1));
+			tileBtns[i].setTextFill(Color.BLACK);
+			tileBtns[i].setDisable(false);
+		
+	}
+		switchPlayer(tileBtns);
 
-
+	}
 }
