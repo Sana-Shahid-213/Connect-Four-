@@ -153,7 +153,7 @@ public class ConnectFourGUIDriver extends Application {
 			
 		}
 		
-		
+		 
 	}
 
 	public static void main(String[] args) {
