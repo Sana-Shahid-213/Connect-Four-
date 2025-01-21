@@ -29,8 +29,7 @@ public class ConnectFourGUIDriver extends Application {
 		HBox tileBox = new HBox(5);
 		HBox hbox = new HBox(30);
 		Button[] tileBtns = new Button[7];
-
-		Board board = new Board(6, 7);
+// board = new Board(6, 7);
 		Circle[][] slots = new Circle[6][7];
 		
 		// current player
