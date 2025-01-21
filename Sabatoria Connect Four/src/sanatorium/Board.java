@@ -252,7 +252,7 @@ public class Board {
 
 	}
 	public void gameOver(Button[] tileBtns, CellState winningPlayer) {
-		endedGame = true;
+		
 		//disable buttons now.
 		//System.out.println("YO IT WORKS");
 		String winner = "";
