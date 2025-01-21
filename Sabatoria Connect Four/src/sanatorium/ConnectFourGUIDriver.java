@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class ConnectFourGUIDriver extends Application {
 
@@ -66,8 +68,9 @@ public class ConnectFourGUIDriver extends Application {
 		for (int i = 0; i < tileBtns.length; i++) {
 			
 			tileBtns[i] = new Button(String.valueOf(i+1));
-			tileBtns[i].setStyle("-fx-font: 20 arial");
+			tileBtns[i].setStyle("-fx-font: 20 arial; -fx-font-weight: bold; -fx-text-fill: white");
 			tileBtns[i].setPrefSize(65, 60);
+			
 			
 			//TODO colour change
 			
