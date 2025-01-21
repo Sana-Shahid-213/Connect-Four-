@@ -13,7 +13,6 @@ public class Board {
 	private int rows;
 	private int cols;
 	private CellState currentPlayer;
-	private boolean endedGame = false;
 	
 	/**
 	 * Constructor for Boards.
@@ -60,32 +59,18 @@ public class Board {
 		return cols;
 	}
 
-	/**
-	 * Check if a proposed location is valid.
-	 * 
-	 * @param rowIndex row index to check
-	 * @param colIndex column index to check
-	 * @return true if index value is valid, otherwise false
-	 */
-	public boolean isValid(int rowIndex, int colIndex) {
-		return (rowIndex >= 0 && rowIndex < rows) && (colIndex >= 0 && colIndex < cols);
-	}
-
 	public void display() {
-		System.out.println("BOARD");
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				System.out.printf("%s ", board[i][j]);
-			}
-			System.out.println();
-		}
-	}
-
-	public void placePiece(int column, CellState player) {
-		board[rows - 1][column - 1].setState(player);
-
-	}
-
+        System.out.println("BOARD");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.printf("%s ", board[i][j]);
+            }
+            System.out.println();
+        }
+    }
+	
+	
+	
 	/**
 	 * Purpose: drops a token into the 2D Array of Buttons, into a column specified
 	 * by the user.
@@ -153,10 +138,10 @@ public class Board {
 		for (int i = 0; i < tileBtns.length; i++) {
 
 			if (this.currentPlayer == CellState.P1) {
-				tileBtns[i].setStyle("-fx-background-color: red; -fx-font: 20 arial; -fx-font-weight: bold;");
+				tileBtns[i].setStyle("-fx-background-color: crimson; -fx-font: 20 arial; -fx-font-weight: bold;");
 
 			} else if (this.currentPlayer == CellState.P2) {
-				tileBtns[i].setStyle("-fx-background-color: yellow; -fx-font: 20 arial; -fx-font-weight: bold;");
+				tileBtns[i].setStyle("-fx-background-color: gold; -fx-font: 20 arial; -fx-font-weight: bold;");
 
 			}
 		}
@@ -234,37 +219,53 @@ public class Board {
 			}
 
 		}
-		// TODO implement diagonal row checking!!!!!
 
 		// diagonal row checking below
-		// TODO IN PROGRESS!!!! IN PROGRESS!!!!!! NOT DONE YET!!! DOES NOT
-		// WORK!!!!!!!!!!!
-		int n = 0;
-		for (int k = 0; k < 12; k++) {
-			if (n <= 6 && k < 6) {
-				for (int l = 0; l < n; l++) {
-					if (board[k][l].getFill() == (Color.RED) && this.currentPlayer == CellState.P1) {
-						fourInARow++;
-					} else if (board[k][l].getFill() == (Color.YELLOW) && this.currentPlayer == CellState.P2) {
-						fourInARow++;
-					} else {
-						fourInARow = 0;
-					}
-					if (fourInARow >= 4) {
-						System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
-						// TODO end game here
-						gameOver(tileBtns, currentPlayer);
-					}
+		//check from top left to bottom right 
+		//thank you google gemini
+		
+		//different approach
+		for (int k=0; k<=2; k++) {
+            for (int l=0; l<=3; l++) {
+                if (board[k][l].getFill() == (Color.RED) && currentPlayer == CellState.P1 && 
+                    board[k+1][l+1].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
+                    board[k+2][l+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
+                    board[k+3][l+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
+                    gameOver(tileBtns, currentPlayer);
+                }else if (board[k][l].getFill() == (Color.RED) && currentPlayer == CellState.P1 && 
+                        board[k+1][l+1].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
+                        board[k+2][l+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
+                        board[k+3][l+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
+                        gameOver(tileBtns, currentPlayer);
+                        System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
+                    }
+            }
+        }
 
-				}
-			}
-		}
+        // checking from bottom left to top right
+        for (int m=5; m>=3; m--) {
+            for (int n=0; n<=3; n++) {
+                if (board[m][n].getFill() == (Color.RED) && currentPlayer == CellState.P1 && 
+                    board[m-1][n+1].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
+                    board[m-2][n+2].getFill() == (Color.RED) && currentPlayer == CellState.P1 &&
+                    board[m-3][n+3].getFill() == (Color.RED) && currentPlayer == CellState.P1) {
+                    gameOver(tileBtns, currentPlayer);
+                }
+                if (board[m][n].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2 && 
+                        board[m-1][n+1].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2 &&
+                        board[m-2][n+2].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2 &&
+                        board[m-3][n+3].getFill() == (Color.YELLOW) && currentPlayer == CellState.P2) {
+                        gameOver(tileBtns, currentPlayer);
+                        System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
+                    }
+            }
+        }
 
 	}
 	public void gameOver(Button[] tileBtns, CellState winningPlayer) {
-		endedGame = true;
+		
 		//disable buttons now.
-		System.out.println("YO IT WORKS");
+		//System.out.println("YO IT WORKS");
 		String winner = "";
 		
 		if (winningPlayer == CellState.P1) {

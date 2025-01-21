@@ -3,22 +3,17 @@ package sanatorium;
 import javafx.application.Application;
 import java.util.Random;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class ConnectFourGUIDriver extends Application {
 
@@ -103,10 +98,12 @@ public class ConnectFourGUIDriver extends Application {
 		tileBox.setAlignment(Pos.CENTER);
 		hbox.setAlignment(Pos.CENTER);
 
-		// hbox.getChildren().addAll(tileBox, gridPane, Connect4);
+	
 
-		// start of game - display menu,
+
+		// start of game - display menu, start game when appropriate button is pressed
 		Utils.displayMenu(vbox, title, onePlayer, twoPlayers, tileBox, gridPane, credits);
+
 		twoPlayers.setOnAction(e -> {
 			Utils.startGame(title, onePlayer, twoPlayers, tileBox, gridPane, vbox, credits);
 		});
@@ -126,15 +123,16 @@ public class ConnectFourGUIDriver extends Application {
 				
 				//drop token, verify win if applicable
 				board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
+
 				board.display();
 				//TODO modify cell state too!!! also make currentPlayer enum maybe? research later
+
 
 	});}
 		}
 		
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		launch(args);
 
 	}}
