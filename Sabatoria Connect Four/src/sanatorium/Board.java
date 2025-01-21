@@ -1,21 +1,14 @@
 package sanatorium;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
-/*
- * 
- * Purpose: contains all of the Requirements and Functionalities for the Album and its tracks
- * @author Sana Shahid & Victoria Lee
+/**
+ * Purpose: Contains gameplay tracking methods for Connect Four
+ * @author Sana & Victoria
  * @date Jan 20th 2025
  */
-
 public class Board {
 	private Cell[][] board;
 	private int rows;
@@ -24,7 +17,6 @@ public class Board {
 	
 	/**
 	 * Constructor for Boards.
-	 * 
 	 * @param aRows number of rows in board
 	 * @param aCols number of columns in board
 	 */
@@ -42,7 +34,6 @@ public class Board {
 
 	/**
 	 * Obtain the current player (colour)
-	 * 
 	 * @return player (colour)
 	 */
 	public CellState getCurrentPlayer() {
@@ -51,7 +42,6 @@ public class Board {
 
 	/**
 	 * Obtain the current number of rows.
-	 * 
 	 * @return number of rows
 	 */
 	public int getRows() {
@@ -60,7 +50,6 @@ public class Board {
 
 	/**
 	 * Obtain the current number of columns.
-	 * 
 	 * @return number of columns
 	 */
 	public int getCols() {
@@ -68,7 +57,7 @@ public class Board {
 	}
 
 	/**
-	 * 
+	 * Purpose: prints updated text-based board in console
 	 */
 	public void display() {
         System.out.println("BOARD");
@@ -85,13 +74,11 @@ public class Board {
 	/**
 	 * drops a token into the 2D Array of Buttons, into a column specified
 	 * by the user.
-	 * 
 	 * @param column int returned when button above is selected by user
 	 * @param modArray array of buttons representing board
 	 * @param currentPlayer current player and colour of token to drop
+	 * @param tileBtns Array of clickable buttons for the user to indicate what column to drop a token
 	 */
-
-
 	public void drop(int column, Circle[][] modArray, CellState currentPlayer, Button[] tileBtns) {
 
 		boolean placed = false;// checks from the bottom up, so only 1 token should be placed when drop is
@@ -131,9 +118,10 @@ public class Board {
 	}
 
 	/**
-	 * changes currentPlayer. Helper method called when a token is dropped
+	 * Purpose - to switch the player colours of the overhead buttons upon taking a turn
+	 * @param tileBtns - Array of clickable buttons for the user to choose a column to drop a token
 	 */
-	public void switchPlayer(Button tileBtns[]) {
+	public void switchPlayer(Button[] tileBtns) {
 		if (currentPlayer == CellState.P1) {
 			// System.out.println("successfully changed to yellow");
 			this.currentPlayer = CellState.P2;
@@ -160,11 +148,10 @@ public class Board {
 
 	/**
 	 * Purpose: checks the board for a win, given a specific colour to search for
-	 * (current player
-	 * 
-	 * @param board         2D Array of Buttons representing a board
-	 * @param currentPlayer String representing current colour's turn
-	 * @param col           int column specified (where it was dropped)
+	 * @param board - 2D Array of Circle objects representing 
+	 * @param currentPlayer - CellState object determining who is taking a turn
+	 * @param col - int representing the user indicated column
+	 * @param tileBtns - Array of Buttons for the user to click
 	 */
 	public void checkWin(Circle[][] board, CellState currentPlayer, int col, Button[] tileBtns) {
 		int fourInARow = 0;
@@ -195,7 +182,7 @@ public class Board {
 				if (fourInARow >= 4) {
 					System.out.println("YIPPEE " + currentPlayer + " you WON horizontally");
 					// TODO end game here.
-					gameOver(tileBtns, currentPlayer);
+					gameOver(tileBtns, currentPlayer, board);
 
 				}
 
@@ -224,7 +211,7 @@ public class Board {
 				if (fourInARow >= 4) {
 					System.out.println("YIPPEE " + currentPlayer + " YOU WON VERTICALLY");
 					// TODO end game here - make game end method?? boolean???
-					gameOver(tileBtns, currentPlayer);
+					gameOver(tileBtns, currentPlayer, board);
 				}
 			}
 
@@ -232,7 +219,7 @@ public class Board {
 
 		// diagonal row checking below
 		//check from top left to bottom right 
-		//thank you google gemini
+		//Concept taken from Google Gemini, modified to be used in our game
 		
 		//different approach
 		for (int k=0; k<=2; k++) {
@@ -241,12 +228,12 @@ public class Board {
                     board[k+1][l+1].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
                     board[k+2][l+2].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
                     board[k+3][l+3].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1) {
-                    gameOver(tileBtns, currentPlayer);
+                    gameOver(tileBtns, currentPlayer, board);
                 }else if (board[k][l].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 && 
                         board[k+1][l+1].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
                         board[k+2][l+2].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
                         board[k+3][l+3].getFill() == (Color.GOLD) && currentPlayer == CellState.P2) {
-                        gameOver(tileBtns, currentPlayer);
+                        gameOver(tileBtns, currentPlayer, board);
                         System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
                     }
             }
@@ -259,13 +246,13 @@ public class Board {
                     board[m-1][n+1].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
                     board[m-2][n+2].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1 &&
                     board[m-3][n+3].getFill() == (Color.CRIMSON) && currentPlayer == CellState.P1) {
-                    gameOver(tileBtns, currentPlayer);
+                    gameOver(tileBtns, currentPlayer, board);
                 }
                 if (board[m][n].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 && 
                         board[m-1][n+1].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
                         board[m-2][n+2].getFill() == (Color.GOLD) && currentPlayer == CellState.P2 &&
                         board[m-3][n+3].getFill() == (Color.GOLD) && currentPlayer == CellState.P2) {
-                        gameOver(tileBtns, currentPlayer);
+                        gameOver(tileBtns, currentPlayer, board);
                         System.out.println("YIPPEE " + currentPlayer + " YOU WON DIAGONALLY");
                     }
             }
@@ -273,14 +260,40 @@ public class Board {
 
 	}
 	/**
-	 * 
-	 * @param tileBtns
-	 * @param winningPlayer
+	 * Purpose: to determine whether the game is tied.
+	 * @param board - 2D Array of circles representing the board
+	 * @param tileBtns - Array of Tiles representing clickable column buttons
 	 */
-	public void gameOver(Button[] tileBtns, CellState winningPlayer) {
+	public void checkTie(Circle[][] board, Button[] tileBtns) {
+	
+		boolean isTie = true;
+		CellState winningPlayer = CellState.EMPTY;
+
+		for (int p = 0; p<6; p++) {
+
+		if (board[0][p].getFill() == (Color.MIDNIGHTBLUE)){
+
+		isTie = false;
+
+		}
+	}
+		if (isTie) {
+			gameOver(tileBtns, winningPlayer, board);
+		}
+	}
+	
+	/**
+	 * Purpose: to end the game, called in different circumstances (winning, tieing)
+	 * @param tileBtns - Array of Buttons for user to drop tokens in columns 
+	 * @param winningPlayer - CellState indicating which player has won
+	 * @param circles - 2D Array of Circles representing the connect 4 board
+	 */
+	public void gameOver(Button[] tileBtns, CellState winningPlayer, Circle[][] circles) {
 		
 		//disable buttons now.
 		String winner = "";
+		boolean isTie = true;
+		String[] message;
 		
 		if (winningPlayer == CellState.P1) {
 			winner = "1";
@@ -288,10 +301,34 @@ public class Board {
 			winner = "2";
 		}
 		
-	String[] pWins = {"P", winner, " ", "W","I", "N", "S"};
+		//end message
+		String[] pWins = {"P", winner, " ", "W","I", "N", "S"};
+		String[] pTie = {" ", " ", "T", "I","E", " ", " "};
+		
+		
+
+		System.out.println(winningPlayer);
+		
+		for (int p = 0; p<6; p++) {
+
+			if (circles[0][p].getFill() == (Color.MIDNIGHTBLUE)){
+
+			isTie = false;
+
+			}
+		}
+		if (isTie) {
+			message = pTie;
+		}else {
+			message = pWins;
+		}
+	
+	
 	switchPlayer(tileBtns);
+	
+
 	for (int i = 0; i < tileBtns.length; i++) {
-			tileBtns[i].setText(pWins[i]);
+			tileBtns[i].setText(message[i]);
 			tileBtns[i].setTextFill(Color.WHITE);
 			tileBtns[i].setDisable(true);
 			
@@ -299,7 +336,12 @@ public class Board {
 
 		
 	}
-	
+	/**
+	 * Purpose: to clear the board. Called when reset button is pressed by user
+	 * @param tileBtns - Array of buttons for the user to indicate what column to drop the token
+	 * @param modArray - 2D Array of Circles representing the Connect Four board
+	 * @param board - Board object representing the board
+	 */
 	public void clearBoard(Button[] tileBtns, Circle[][] modArray, Board board) {
 		for (int i = 0; i < board.getRows(); i++) {
 			for (int j = 0; j < board.getCols(); j++) {

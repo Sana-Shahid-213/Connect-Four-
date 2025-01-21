@@ -3,7 +3,6 @@ package sanatorium;
 import javafx.application.Application;
 import javafx.application.Platform;
 
-import java.util.Random;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
-
+/**
+ * Purpose: to play a JavaFX based game of Connect Four
+ * @author Sana & Victoria
+ * @date 20 January 2025
+ */
 public class ConnectFourGUIDriver extends Application {
 
 	@Override
@@ -38,6 +41,7 @@ public class ConnectFourGUIDriver extends Application {
 		Button onePlayer = new Button(" 1 PLAYER ");
 		onePlayer.setStyle("-fx-font: 30 arial");
 		onePlayer.setAlignment(Pos.CENTER);
+		onePlayer.setDisable(true);
 
 		// 2 players button
 		Button twoPlayers = new Button("2 PLAYERS");
@@ -94,7 +98,7 @@ public class ConnectFourGUIDriver extends Application {
 		}
 		//A 7 by 6 Grid to acting as the Connect 4 Board holding the slots
 		GridPane gridPane = new GridPane();
-		gridPane.setAlignment(Pos.TOP_CENTER);
+		gridPane.setAlignment(Pos.CENTER);//can change to TOP_CENTER if needed
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
 
@@ -129,6 +133,7 @@ public class ConnectFourGUIDriver extends Application {
 			tileBtns[k].setOnAction(e -> {
 			//drop token, verify win if applicable
 			board.drop(column, slots, board.getCurrentPlayer(), tileBtns);
+			//board.checkTie(slots, tileBtns);
 			board.display();
 	});}
 		
